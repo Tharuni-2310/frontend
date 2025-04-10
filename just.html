@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Scholarship Finder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #FF6B6B;
+            --secondary-color: #4ECDC4;
+            --accent-color: #FFE66D;
+            --text-color: #2d3436;
+            --light-bg: #f7f7ff;
+            --white: #ffffff;
+            --gradient-start: #FF6B6B;
+            --gradient-end: #FF8E53;
+            --card-bg: #ffffff;
+            --card-shadow: rgba(255, 107, 107, 0.1);
+            --tag-bg: #FFE8E8;
+            --hover-color: #FF5252;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.5; }
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background: var(--light-bg);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            background: var(--light-bg);
+        }
+
+        .nav-links a i {
+            margin-right: 0.5rem;
+        }
+
+        .image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--white);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .image::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+
+        .header-text {
+            text-align: left;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, #FFE66D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1s ease-out;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, #FFE66D, transparent);
+            border-radius: 2px;
+        }
+
+        .header-content p {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-out 0.2s backwards;
+            line-height: 1.6;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 2rem;
+            margin: 2.5rem 0;
+            animation: fadeIn 1s ease-out 0.4s backwards;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.2rem 2.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-box:hover::before {
+            transform: translateX(100%);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #ffffff, #FFE66D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            animation: fadeIn 1s ease-out 0.6s backwards;
+        }
+
+        .header-button {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .primary-button {
+            background: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            color: #2d3436;
+            box-shadow: 0 4px 15px rgba(255, 230, 109, 0.3);
+        }
+
+        .secondary-button {
+            background: transparent;
+            border: 2px solid var(--white);
+            backdrop-filter: blur(5px);
+        }
+
+        .header-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .header-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-button:hover i {
+            transform: scale(1.2);
+        }
+
+        .primary-button:hover {
+            background: #FFD93D;
+            color: #2d3436;
+        }
+
+        .secondary-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .header-text {
+                text-align: center;
+            }
+
+            .header-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-buttons {
+                justify-content: center;
+            }
+
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            .image {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        .search-section {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            padding: 3rem 0;
+            margin: 2rem auto;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>') repeat;
+            opacity: 0.1;
+        }
+
+        .search-section h2 {
+            color: var(--white);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-section p {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-form {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .search-form input[type="text"] {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: var(--white);
+            padding-right: 50px;
+        }
+
+        .search-form input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+        }
+
+        .search-form button {
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 12px 24px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-form button:hover {
+            background: var(--hover-color);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .search-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            color: var(--white);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .filter-section {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .filter-label {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light-bg);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .filter-label:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .filter-label input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .filter-label i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .filter-label span {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .filter-label.selected {
+            background: var(--primary-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+        }
+
+        .filter-label.selected i {
+            color: var(--accent-color);
+        }
+
+        .filter-label.selected span {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .filter-label.selected::after {
+            content: '✓';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .filter-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .filter-actions button {
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-actions button.apply {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .filter-actions button.clear {
+            background: var(--light-bg);
+            color: var(--text-color);
+            border: 1px solid #ddd;
+        }
+
+        .filter-actions button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-actions button.apply:hover {
+            background: var(--hover-color);
+        }
+
+        .filter-actions button.clear:hover {
+            background: #e0e0e0;
+        }
+
+        .filter-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+
+        .filter-count.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, var(--hover-color), var(--gradient-end));
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .featured-scholarships {
+            margin: 2rem auto;
+        }
+
+        .scholarship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .scholarship-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(108, 92, 231, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .favorite-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: none;
+            color: #ccc;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .favorite-button:hover {
+            transform: scale(1.1);
+            color: #FFD93D;
+        }
+
+        .favorite-button.active {
+            color: #FFD93D;
+        }
+
+        .favorite-button.active:hover {
+            transform: scale(1.1);
+        }
+
+        .featured-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: var(--light-bg);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px var(--card-shadow);
+            overflow: hidden;
+        }
+
+        .featured-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .featured-section h2 i {
+            color: #FFD93D;
+        }
+
+        .featured-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .featured-grid .scholarship-card {
+            margin: 0;
+            height: 100%;
+            flex: 1;
+            min-width: 250px;
+            max-width: calc(33.333% - 1rem);
+            padding: 1rem;
+        }
+
+        .featured-grid .scholarship-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+
+        .featured-grid .scholarship-title {
+            font-size: 1rem;
+        }
+
+        .featured-grid .scholarship-description {
+            font-size: 0.85rem;
+            margin: 0.5rem 0;
+        }
+
+        .featured-grid .scholarship-eligibility {
+            margin: 0.5rem 0;
+        }
+
+        .featured-grid .eligibility-tag {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+        }
+
+        .featured-grid .scholarship-link {
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .featured-grid .favorite-button {
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .no-featured {
+            width: 100%;
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .no-featured i {
+            font-size: 3rem;
+            color: #FFD93D;
+            margin-bottom: 1rem;
+        }
+
+        .scholarship-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .scholarship-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .scholarship-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .scholarship-eligibility {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .eligibility-tag {
+            background: var(--tag-bg);
+            color: var(--gradient-start);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .scholarship-description {
+            color: #666;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .scholarship-footer {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(108, 92, 231, 0.1);
+        }
+
+        .scholarship-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-color);
+            color: #2d3436;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            justify-content: center;
+            font-weight: 500;
+        }
+
+        .scholarship-link:hover {
+            background: #FFD93D;
+            transform: translateY(-2px);
+        }
+
+        .scholarship-link i {
+            font-size: 1rem;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .pagination-controls button {
+            padding: 8px 16px;
+        }
+
+        .pagination-controls button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 1024px) {
+            .featured-grid .scholarship-card {
+                max-width: calc(50% - 1rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .featured-grid {
+                flex-direction: column;
+            }
+            
+            .featured-grid .scholarship-card {
+                max-width: 100%;
+            }
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            z-index: 2;
+        }
+
+        .user-profile i {
+            font-size: 1.2rem;
+            color: var(--white);
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-btn i {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <img src="img.jpg" class="image" alt="Scholar Hunt Logo">
+                <div class="header-text">
+                    <h1>Scholar Hunt</h1>
+                    <p>Your Gateway to Finding Scholarships</p>
+                    <div class="header-buttons">
+                        <a href="#search-section" class="header-button primary-button">
+                            <i class="fas fa-search"></i>
+                            Find Scholarships
+                        </a>
+                        <a href="#featured-scholarships" class="header-button secondary-button">
+                            <i class="fas fa-star"></i>
+                            Featured
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <h2>Find Your Perfect Scholarship</h2>
+            <p>Discover thousands of scholarships tailored for Indian students. Search by keywords or use our filters to find the best match for your academic journey.</p>
+            <div class="profile-header">
+                    <h2>Welcome<span id="user-name"></span>!</h2>
+            </div>
+
+            <form id="searchForm" class="search-form" action="#" method="GET">
+                <input type="text" id="searchQuery" name="searchQuery" placeholder="Search for scholarships...">
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </button>
+            </form>
+
+            <div class="filter-section">
+                <h3><i class="fas fa-filter"></i> Filter Scholarships</h3>
+                <form id="eligibilityForm" class="filter-grid">
+                    <label class="filter-label">
+                        <input type="checkbox" name="eligibility" value="undergraduate">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Undergraduate</span>
+                    </label>
+                    <label class="filter-label">
+                        <input type="checkbox" name="eligibility" value="graduate">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Graduate</span>
+                    </label>
+                    <label class="filter-label">
+                        <input type="checkbox" name="eligibility" value="merit">
+                        <i class="fas fa-award"></i>
+                        <span>Merit-Based</span>
+                    </label>
+                    <label class="filter-label">
+                        <input type="checkbox" name="eligibility" value="need">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <span>Need-Based</span>
+                    </label>
+                    <label class="filter-label">
+                        <input type="checkbox" name="eligibility" value="international">
+                        <i class="fas fa-globe"></i>
+                        <span>International</span>
+                    </label>
+                </form>
+                <div class="filter-actions">
+                    <button type="button" onclick="filterScholarships()" class="apply">
+                        <i class="fas fa-filter"></i> Apply Filters
+                    </button>
+                    <button type="button" onclick="clearAllFilters()" class="clear">
+                        <i class="fas fa-times"></i> Clear All
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Scholarships Section -->
+    <section class="featured-section">
+        <div class="container">
+            <h2><i class="fas fa-star"></i> Your Featured Scholarships</h2>
+            <div id="featuredScholarships" class="featured-grid">
+                <!-- Featured scholarships will be displayed here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Scholarships Section -->
+    <section class="featured-scholarships">
+        <div class="container">
+            <h2>Featured Scholarships</h2>
+            <div id="scholarshipList">
+                <!-- Scholarship entries will go here -->
+            </div>
+            <div class="pagination-controls">
+                <button id="prev-btn" onclick="paginate(-1)"><i class="fas fa-chevron-left"></i> Previous</button>
+                <button id="next-btn" onclick="paginate(1)">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Scholarship Finder. All Rights Reserved.</p>
+        </div>
+    </footer>
+<script>
+const scholarships = [
+        {
+            name: "Inlaks Shivdasani Foundation Scholarship",
+            eligibility: ["graduate", "merit"],
+            description: "Indian citizen under 30. First-class undergraduate degree. Secured admission to a top foreign university.",
+            link: "https://onlineapplication.inlaksfoundation.org/"
+        },
+        {
+            name: "The Education Future International Scholarship",
+            eligibility: ["undergraduate", "graduate", "need"],
+            description: "Minimum 60% marks in both 10th and 12th grades. Applicants must demonstrate financial need and plan to fund at least 50% of their education through an education loan.",
+            link: "https://www.wemakescholars.com/scholarship/education-future-international-scholarship"
+        },
+        {
+            name: "The Higher Education Scholarship Test (HEST)",
+            eligibility: ["undergraduate", "graduate", "merit"],
+            description: "Minimum 55% marks in both 10th and 12th grades. It offers partial funding up to ₹3 lakh for Indian students pursuing bachelors, masters, MBA, or diploma programs abroad.",
+            link: "https://www.wemakescholars.com/scholarship/higher-education-scholarship-test-for-indian-students-hest"
+        },
+        {
+            name: "G. P. Birla Scholarship",
+            eligibility: ["undergraduate", "merit"],
+            description: "Residents of West Bengal, undergraduate students. For meritorious students of West Bengal pursuing undergraduate studies. Up to ₹50,000 per annum",
+            link: "http://www.birlaedu.com/"
+        },
+        {
+            name: "Vidyasaarathi Scholarship",
+            eligibility: ["undergraduate", "graduate", "merit"],
+            description: "Open to students pursuing undergraduate, postgraduate, and diploma courses in recognized institutions. Each scheme may have its own set of requirements related to academic performance, course of study, and other factors.",
+            link: "https://www.vidyasaarathi.co.in/Vidyasaarathi/registration"
+        },
+        {
+            name: "R D Sethna Scholarship",
+            eligibility: ["undergraduate", "graduate", "need"],
+            description: "Preference may be given to students demonstrating financial need. Must have a consistently good academic record. Applicable to students pursuing technical, scientific, industrial, or commercial studies in India or abroad.",
+            link: "https://www.rdsethnascholarships.org/wp-login.php?action=register"
+        },
+        {
+            name: "AISEE (All India Scholarship Entrance Examination)",
+            eligibility: ["undergraduate", "merit"],
+            description: "Students appearing for or who have passed Class 12. Must qualify the AISEE examination to be considered for the scholarship. Aspiring to pursue medical or engineering courses.",
+            link: "https://www.aisee.co.in/"
+        },
+        {
+            name: "Chevening Scholarship",
+            eligibility: ["graduate", "merit", "international"],
+            description: "Open to outstanding emerging leaders from around the world who have at least two years of work experience and a bachelors degree, and who wish to pursue a one-year masters degree in the UK.",
+            link: "https://www.chevening.org/apply/"
+        },
+        {
+            name: "Gates Cambridge Scholarship",
+            eligibility: ["graduate", "merit", "international"],
+            description: "Open to outstanding applicants from outside the UK who wish to pursue a full-time postgraduate degree (Masters or PhD) at the University of Cambridge, demonstrating academic excellence, leadership potential, and a commitment to improving the lives of others.",
+            link: "https://apply.postgraduate.study.cam.ac.uk/applicant/login"
+        },
+        {  name:'British Council Scholarships for Women in STEM',eligibility:['international'],description:'Female students from South Asia pursuing studies in STEM fields. Covers full tuition fees, living expenses, travel costs, visa and health coverage fees [2].Female students from South Asia pursuing studies in STEM fields.',link:" https://www.britishcouncil.org/"},
+    { name:'Sharda University Scholarships ',eligibility:['merit'],description:'Scholarship percentage depends on SUAT score (up to 100%).Maintain a minimum CGPA of 8.00 to continue.It is merit-based financial aid for postgraduate students based on SUAT scores, academic performance, and interviews.',link:"https://admissions.sharda.ac.in/SUAT/?utm_source=Google_Search&utm_medium=cpc_SUAT&utm_campaign=2025-SUAT-Entrance(S)&utm_keyword=postgraduate%20scholarship&gad_source=1&gclid=Cj0KCQjw4v6-BhDuARIsALprm30ddl4nqEaMDgkuX_KGziOe3wMCRaI-8l1DI2BgrFsBi_mZ6NtgB5oaAmFhEALw_wcB "},
+    { name:'TOEFL Global Scholar Challenge',eligibility:['international'],description:'Indian students (3rd/4th year) or professionals (up to 2 years experience).It offers prizes worth ₹1,30,000 for Indian students and professionals planning to study abroad.',link:"https://www.buddy4study.com/page/toefl-global-scholar-challenge#singleScApply "},
+    { name:'Fulbright Distinguished Awards in Teaching 2025-26',eligibility:['international'],description:'Minimum 5 years of full-time teaching experience.It offers Indian teachers a semester-long professional development program in the U.S.',link:"https://www.buddy4study.com/scholarship/fulbright-distinguished-awards-in-teaching-program-2025-26 "},
+    { name:'The Education Future International Scholarship 2025',eligibility:['need'],description:'Minimum 60% marks in both 10th and 12th grades.Applicants must demonstrate financial need and plan to fund at least 50% of their education through an education loan. It offers partial funding between INR 2 lakhs to INR 10 lakhs for Indian students pursuing bachelors or masters degrees abroad.',link:"https://www.wemakescholars.com/scholarship/education-future-international-scholarship "},
+    { name:'The Higher Education Scholarship Test (HEST) 2025 ',eligibility:['international'],description:'Minimum 55% marks in both 10th and 12th grades.It offers partial funding up to ₹3 lakh for Indian students pursuing bachelors, masters, MBA, or diploma programs abroad, excluding Medicine/MBBS',link:"https://www.wemakescholars.com/scholarship/higher-education-scholarship-test-for-indian-students-hest "},
+    { name:'The Adult Career and Continuing Education Services-Vocational Rehabilitation (ACCES-VR) ',eligibility:['international'],description:'Candidates should be available and willing to actively engage in the vocational rehabilitation process.The program is at New York Institute of Technology (NYIT) offers partial funding to eligible students with disabilities to support their education and career development. NYIT Catalog',link:"https://www.wemakescholars.com/scholarship/adult-career-and-continuing-education-services-vocational-rehabilitation-access-vr-at-new-york-institute-of-technology-nyit "},
+    { name:'Leverage Edu Study Abroad Scholarship',eligibility:['need'],description:'Indian students planning to study in the UK, Canada, the US, or other international destinations.This scholarship offers financial aid ranging from ₹20,000 to ₹3,00,000 to help students cover tuition and living expenses while studying abroad.',link:"https://leverageedu.com/study-abroad-consultant/?utm_source=Google&utm_medium=IN_Study_Abroad&utm_campaign=PMX_Search_UK_Non_Brand_Study_Abroad_India&utm_channel=ppc&adgroupid=166316253995&campaignid=21532863099&utm_term=study%20abroad%20options&ad=731012924052&mt=p&gad_source=1&gclid=Cj0KCQjwhYS_BhD2ARIsAJTMMQb9KSqsHRjfizHVqKUdIyxQsF-oCP1sjVcbL2PiXlHKRWTt3mq1CgkaAgKFEALw_wcB "},
+    { name:'E-Kalyan (Telangana & Jharkhand)',eligibility:['graduate'],description:'Must be pursuing post-matriculation studies (i.e., studies after Class 10) in recognized institutions.Must be a domicile of Telangana. Applicable to students belonging to Scheduled Castes (SC), Scheduled Tribes (ST), and Other Backward Classes (OBC).',link:"https://ekalyan.cgg.gov.in/candidateReg.htm"},
+    { name:'AISEE (All India Scholarship Entrance Examination',eligibility:['merit'],description:'Students appearing for or who have passed Class 12.Must qualify the AISEE examination to be considered for the scholarship.Aspiring to pursue medical or engineering courses.',link:"https://www.aisee.co.in/"},
+    { name:'TheDream.US National Scholarship',eligibility:['need'],description:'Undocumented students who came to the U.S. before November 1, 2019, before the age of 16, with significant unmet financial need. Provides financial support to DREAMers to help them achieve their higher education goals.',link:"https://www.thedream.us/scholarships/national-scholarship/"},
+    { name:'Education Concession to the Children of Ex-Servicemen, Maharashtra',eligibility:['Need-Based'],description:'Must be a child of an ex-serviceman studying in a recognized institution.Financial aid for children of ex-servicemen in Maharashtra.',link:"https://www.buddy4study.com/scholarship/education-concession-to-the-children-of-ex-servicemen-maharashtra "},
+    { name:'Taiwan Government Scholarship Programme 2025',eligibility:['international'],description:'Supports international students for higher studies in Taiwan.',link:"https://www.buddy4study.com/scholarship/taiwan-government-scholarship-programme-2025 "},
+    { name:'Inlaks Shivdasani Scholarships',eligibility:['merit'],description:'First-class degree from a recognized Indian university.Minimum academic performance required.Born on or after Jan 1, 1995.',link:"https://www.buddy4study.com/scholarship/inlaks-scholarships "},
+    { name:'Gandhi Fellowship',eligibility:['merit'],description:'Bachelor’s or master’s degree in any field.Strong academic or extracurricular achievements.Passion for social change. A two-year residential program to develop leadership skills through social impact projects.',link:"https://www.buddy4study.com/scholarship/the-gandhi-fellowship "},
+    { name:'Scholarship to Meritorious Students Possessing Mathematics/Physics, Maharashtra',eligibility:['need'],description:'Minimum 60% in Class 12 Science.Enrolled in a B.Sc. program with Mathematics or Physics Financial aid for B.Sc. students with Mathematics or Physics as main subjects.',link:"https://www.buddy4study.com/scholarship/scholarship-to-meritorious-students-possessing-mathematics-physics-maharashtra "},
+    { name:'DTE Rajarshi Chhatrapati Shahu Maharaj Shikshan Shulkh Shishyavrutti Yojna (EBC), Maharashtra',eligibility:['need'],description:'Family income below ₹8,00,000.Maharashtra resident, Indian citizen.Fee reimbursement for economically backward students in professional and technical courses.',link:"https://www.buddy4study.com/scholarship/dte-rajarshi-chhatrapati-shahu-maharaj-shikshan-shulkh-shishyavrutti-yojna-ebc-students-maharashtra "},
+    { name:'Government Research Adhichatra, Maharashtra',eligibility:['need'],description:'Completed postgraduation with at least 60% mark. Financial aid for postgraduate students pursuing Ph.D. in Maharashtra.',link:"https://www.buddy4study.com/scholarship/government-research-adhichatra-maharashtra "},
+    { name:'Global Scholarship Program AIS',eligibility:['need'],description:'Enrolled in a postgraduate course with no gap after graduationSupports undergraduate and postgraduate students with financial aid and leadership opportunities.',link:"https://www.buddy4study.com/scholarship/global-scholarship-program-ais "},
+    { name:'Sitaram Jindal Foundation Scholarship',eligibility:['need'],description:'Students in Class 11, 12, ITI, diploma, graduation, or postgraduation with required academic performance.Financial aid for students from Class 11 to postgraduation.',link:"https://www.buddy4study.com/scholarship/sitaram-jindal-foundation-scholarship-scheme "},
+    { name:'UniSA International Merit Scholarship',eligibility:['international'],description:'International students with a credit average.Enrolled in an eligible bachelors or masters by coursework program.15% tuition fee reduction for international students at UniSA.',link:"https://www.buddy4study.com/scholarship/unisa-international-merit-scholarship "},
+    { name:'George Brown College Funded Certificate Scholarships',eligibility:['merit'],description:'International student with a valid Study Permit.CAD 2,000 scholarship for international students in certificate programs.',link:"https://www.buddy4study.com/scholarship/george-brown-college-funded-certificate-scholarships "},
+    { name:'ANU College of Business and Economics India Excellence Scholarship',eligibility:['merit'],description:'Applied for an undergraduate or postgraduate coursework program at ANU.Strong academic merit.AUD 10,000 per year for Indian students in business and economics programs at ANU.',link:"https://www.buddy4study.com/scholarship/anu-college-of-business-and-economics-india-excellence-scholarship "},
+    { name: 'Cambridge Trust Scholarships (UK) ', eligibility: ['undergraduate'], description: ' Tuition & living support for Cambridge admits.',link:"https://www.cambridgetrust.org/scholarships/"},
+    { name: 'Rhodes Scholarship (UK)', eligibility: ['undergraduate'], description: 'Full funding for Oxford; requires academic excellence & leadership.',link:"https://www.rhodeshouse.ox.ac.uk/scholarships/the-rhodes-scholarship/"},
+    { name: 'Knight-Hennessy Scholars (USA - Stanford)', eligibility: ['undergraduate'], description: ' Full funding for Stanford students with leadership potential.',link:"https://knight-hennessy.stanford.edu/"},
+    { name: 'Lester B. Pearson Scholarship (Canada) ', eligibility: ['undergraduate'], description: ' Full funding for University of Toronto; for high achievers.',link:"https://future.utoronto.ca/pearson/about/"},
+    { name: 'Fulbright-Nehru Fellowship (USA) ', eligibility: ['undergraduate'], description: ' Covers tuition, living, airfare; for exceptional students with leadership skills.' },
+    { name: 'Fulbright Program', eligibility: ['graduate'], description: 'The Fulbright Program is a prestigious educational exchange initiative sponsored by the U.S. government' },
+    { name: 'Türkiye Scholarships', eligibility: ['graduate'], description: 'Funded by the Government of Turkey, the Türkiye Scholarships program offers around 5,000 scholarships annually to international students pursuing associate, undergraduate, masters, and Ph.D. degrees in Turkey.' },
+    { name: 'Clarendon Fund', eligibility: ['graduate'], description: 'The Clarendon Fund provides over 200 scholarships each year to graduate students at the University of Oxford, covering tuition fees and living expenses. ' },
+    { name: 'Cambridge Commonwealth, European & International Trust', eligibility: ['graduate'], description: ' The scholarships cater to both undergraduate and graduate students, covering various expenses based on financial need.' },
+    { name: 'Rhodes Scholarship', eligibility: ['graduate'], description: 'The Rhodes Scholarship is one of the oldest and most renowned international scholarship programs.' },
+    { name: 'Fulbright-Nehru Fellowship', eligibility: ['international'], description: 'A scholarship for international students with excellent academic performance.' },
+    { name: 'Chevening Scholarship', eligibility: ['international'], description: 'Citizens of eligible countries, undergraduate degree, 2+ years of work experience, commitment to return home.' },
+    { name: 'Orange Tulip Scholarship', eligibility: ['international'], description:'Citizen of select countries, not working/studying in the Netherlands, meet Dutch university requirements.' },
+    { name: 'Weidenfeld-Hoffmann Scholarship', eligibility: ['international'], description: ' Applicants from developing economies, master’s at Oxford, commitment to return & contribute to home country.' },
+    { name: 'National Scholarship Portal (NSP)', eligibility: ['need'], description: ' For Indian students pursuing undergraduate courses with income-based eligibility.' },
+    {name: 'Dr. Reddy’s Foundation Sashakt Scholarship', eligibility: ['need'], description: ' For Indian STEM students with a family income under ₹6 lakh per annum.' },
+    {name: 'Kishore Vaigyanik Protsahan Yojana (KVPY)', eligibility: [ 'need'], description: 'For students in basic sciences with a family income under ₹6 lakh.' },
+    {name: 'Ishan Uday Scholarship Scheme for North Eastern Region', eligibility: ['need'], description: 'For graduate students with demonstrated financial need.' },
+    {name: 'Post Matric Scholarships for Students from the Minority Communities', eligibility: ['need'], description: ' For students from minority communities with a family income under ₹2 lakh per annum.' },
+    {name: 'Central Sector Scheme of Scholarships for College and University Students', eligibility: ['need'], description:'For Indian students with a family income less than ₹8 lakh, and at least 80% marks in Class 12.' },
+    { name: 'KVPY (India)', eligibility: ['merit'], description:'For Class 11, 12, and UG science students (75% in Math & Science). ' },
+    { name: 'NTSE (India)', eligibility: ['merit'], description: 'For Class 10 students. Based on state & national exams.' },
+    { name: 'UGC Merit Scholarship', eligibility: ['merit'], description: 'For 1st & 2nd rank UG holders (60%+).' },
+    { name: 'Sashakt Scholarship', eligibility: ['merit'], description: 'For female science UG students. ₹2.4L over 3 years.' },
+    { name: 'National Merit Scholarship (USA) ', eligibility: ['merit'], description: ' Based on preliminary SAT scores. ' },
+    { name:'L’Oréal India For Young Women in Science Scholarships',eligibility:['undergraduate'],description:'Economically weaker sections, pursuing undergraduate studies in STEM fields.For young women pursuing undergraduate studies in science, technology, engineering, and mathematics (STEM) fields. Award: ₹2.5 lakhs.¹',link:"https://www.loreal.co.in/"},
+    { name:'Khalifa University Undergraduate Scholarship',eligibility:['undergraduate'],description:'For international students pursuing undergraduate studies at Khalifa University. Award: Full tuition fee waiver, monthly stipend, and other benefits.International students pursuing undergraduate studies at Khalifa University.',link:"https://www.ku.ac.ae/"},
+    { name:'The Lester B. Pearson International Scholarship',eligibility:['undergraduate'],description:' For international students pursuing undergraduate studies at the University of Toronto. Award: Full tuition fee waiver, living expenses, and other benefits.International students pursuing undergraduate studies at the University of Toronto.',link:"https://www.utoronto.ca/"},
+    { name:'Adelaide International Undergraduate Scholarships',eligibility:['undergraduate'],description:'For international students pursuing undergraduate studies at the University of Adelaide. Award: Full tuition fee waiver.International students pursuing undergraduate studies at the University of Adelaide.',link:"https://www.adelaide.edu.au/"},
+    { name:'The Lester B. Pearson International Scholarship',eligibility:['international,merit'],description:'Indian students demonstrating exceptional academic achievement and leadership qualities. Provides full tuition, books, incidental fees, and full residence support for four years.Indian students demonstrating exceptional academic achievement and leadership qualities.',link:"https://www.utoronto.ca/"},
+    { name:'Adelaide International Undergraduate Scholarships',eligibility:['international,undergraduate'],description:'Indian students with a high school diploma and meeting the University of Adelaides entry requirements. Provides full tuition waiver for up to four years. Indian students with a high school diploma and meeting the University of Adelaides entry requirements.',link:" https://www.adelaide.edu.au/"},
+    { name:'The Global Korea Scholarship for Undergraduate Degrees',eligibility:['undergraduate'],description:'Indian students under 25 years old, high school graduates with a minimum 80% score. Covers full tuition, monthly stipend, airfare, medical insurance, and Korean language training.Indian students under 25 years old, high school graduates with a minimum 80% score.',link:"https://www.studyinkorea.go.kr/"},
+    { name:'Hong Kong Baptist University Scholarship',eligibility:['merit'],description:'Indian students with high academic achievements and strong leadership skills. Covers full tuition, accommodation, and living allowance.Indian students with high academic achievements and strong leadership skills.',link:" https://www.hkbu.edu.hk/"},
+    { name:'Chevening Scholarships',eligibility:['merit'],description:'Indian students with at least two years of work experience and a bachelors degree. Covers full tuition fees, living expenses, return airfare, and additional grants. Indian students with at least two years of work experience and a bachelors degree.',link:" https://www.chevening.org/"},
+    { name:'Australia Awards Scholarships',eligibility:['merit'],description:'Indian students with a bachelors degree and meeting the specific requirements of the chosen university. Covers full tuition fees, living expenses, return airfare, and health insurance. Indian students with a bachelors degree and meeting the specific requirements of the chosen university.',link:" https://www.australiaawards.gov.au/"},
+    { name:'Erasmus Mundus Joint Master Degree Scholarships',eligibility:['international'],description:'Indian students who are unable to afford to study in the UK and have a bachelors degree. Covers full tuition fees, airfare, living allowance, and additional grants.Indian students who are unable to afford to study in the UK and have a bachelors degree.',link:"https://cscuk.fcdo.gov.uk/about-us/scholarships/commonwealth-shared-scholarships/"},
+    { name:'DAAD Scholarships for Development-Related Postgraduate Courses',eligibility:['international'],description:'Indian students with a masters degree in a relevant field and professional experience. Covers full tuition fees, monthly stipend, health insurance, travel allowance, and study materials. Indian students with a masters degree in a relevant field and professional experience.',link:"https://www.daad.de/"},
+    { name:'Vanier Canada Graduate Scholarships',eligibility:['graduate,merit'],description:'Indian students with excellent academic achievements and research potential. Provides CAD 50,000 per year for three years, covering tuition, living expenses, and research costs [1].Indian students with excellent academic achievements and research potential.',link:"https://vanier.gc.ca/"},
+    { name:'Swiss Government Excellence Scholarships',eligibility:['international'],description:'Indian students with a masters degree and a strong research proposal. Covers full tuition fees, monthly stipend, health insurance, and airfare [1].Indian students with a masters degree and a strong research proposal.',link:" https://www.sbfi.admin.ch/sbfi/en/home/education/scholarships-and-grants/swiss-government-excellence-scholarships.html"},
+    { name:'New Zealand International Doctoral Research Scholarships',eligibility:['international'],description:'Indian students with a masters degree and a strong academic record. Covers full tuition fees, living stipend, health insurance, and return airfare [1].Indian students with a masters degree and a strong academic record.',link:"https://www.newzealand.govt.nz/study-in-new-zealand/scholarships/types-of-scholarships/new-zealand-international-doctoral-research-scholarships"},
+    { name:'National Scholarship Portal',eligibility:['international'],description:' Students pursuing higher education in India. Provides various scholarships [1].Students pursuing higher education in India.',link:"https://scholarships.gov.in/"},
+    { name:'AICTE Pragati Scholarship',eligibility:['undergraduate'],description:'Female students pursuing undergraduate studies in AICTE-approved institutions. Provides ₹30,000 per annum [1].Female students pursuing undergraduate studies in AICTE-approved institutions',link:" https://www.aicte-india.org/"},
+    { name:'Reach Oxford Scholarship',eligibility:['need'],description:' Indian students from low-income backgrounds with excellent academic performance. Covers full tuition fees, living expenses, and one return airfare per year [1].Indian students from low-income backgrounds with excellent academic performance.',link:" https://www.ox.ac.uk/"},
+    { name:'Aga Khan Foundation International Scholarship Programme',eligibility:['international'],description:'Indian students under 30 years of age with excellent academic records and financial need. Covers full tuition fees and living expenses [1].Indian students under 30 years of age with excellent academic records and financial need.',link:"https://www.akdn.org/"},
+    { name:'KSCSTE Post Doctoral Fellowship (PDF) Scheme',eligibility:['merit'],description:' Indian students with a PhD degree in Science and Engineering. Provides a monthly stipend of INR 45,000 and other benefits [2].Indian students with a PhD degree in Science and Engineering.',link:"https://www.kscste.kerala.gov.in/"},
+    {
+    name: "L'Oréal India For Young Women in Science Scholarships",
+    eligibility: ["undergraduate, merit"],
+    description: "For young women pursuing undergraduate studies in science, technology, engineering, and mathematics (STEM) fields. Award: ₹2.5 lakhs",
+    link: "https://www.loreal.co.in/"
+  },
+  {
+    name: "Sitaram Jindal Foundation Scholarship Scheme",
+    eligibility: ["undergraduate, need"],
+    description: "For students pursuing undergraduate studies in various fields. Award: ₹1,000 per month",
+    link: "https://www.sitaramjindalfoundation.org/"
+  },
+  {
+    name: "Khalifa University Undergraduate Scholarship",
+    eligibility: ["undergraduate, international"],
+    description: "For international students pursuing undergraduate studies at Khalifa University. Award: Full tuition fee waiver, monthly stipend, and other benefits",
+    link: "https://www.ku.ac.ae/"
+  },
+  {
+    name: "The Lester B. Pearson International Scholarship",
+    eligibility: ["undergraduate, international, merit"],
+    description: "For international students pursuing undergraduate studies at the University of Toronto. Award: Full tuition fee waiver, living expenses, and other benefits",
+    link: "https://www.utoronto.ca/"
+  },
+  {
+    name: "Adelaide International Undergraduate Scholarships",
+    eligibility: ["undergraduate, international"],
+    description: "For international students pursuing undergraduate studies at the University of Adelaide. Award: Full tuition fee waiver",
+    link: "https://www.adelaide.edu.au/"
+  },
+  {
+    name: "Chevening Scholarships",
+    eligibility: ["graduate, merit"],
+    description: "For international students pursuing graduate studies in the UK. Award: Full tuition fee waiver, living expenses, and other benefits",
+    link: "https://www.chevening.org/"
+  },
+  {
+    name: "Fulbright-Nehru Master's Fellowships",
+    eligibility: ["graduate, merit"],
+    description: "For Indian students pursuing graduate studies in the USA. Award: Full tuition fee waiver, living expenses, and other benefits",
+    link: "https://www.fulbright.org/"
+  },
+  {
+    name: "Aga Khan Foundation International Scholarship Programme",
+    eligibility: ["undergraduate, graduate, need"],
+    description: "For international students pursuing undergraduate or graduate studies. Award: Full tuition fee waiver, living expenses, and other benefits",
+    link: "https://www.akdn.org/"
+  },
+  {
+    name: "University of Adelaide Ashok Khurana Scholarship for Indian Students",
+    eligibility: ["graduate, need"],
+    description: "For Indian students pursuing graduate studies at the University of Adelaide. Award: Partial funding",
+    link: "https://www.adelaide.edu.au/"
+  },
+  {
+    name: "Khalifa University Undergraduate Scholarship",
+    eligibility: ["undergraduate, merit, international"],
+    description: "Indian students with a minimum of 80% in high school final exams. Full tuition, textbooks, and living expenses for undergraduate studies.",
+    link: "https://www.khalifauniversity.ac.ae/"
+  },
+  {
+    name: "Lester B. Pearson International Scholarship",
+    eligibility: ["undergraduate, merit, international"],
+    description: "Exceptional Indian students with leadership qualities. Full tuition, books, and residence support for four years.",
+    link: "https://www.utoronto.ca/"
+  },
+  {
+    name: "Adelaide International Undergraduate Scholarships",
+    eligibility: ["undergraduate, international"],
+    description: "Indian students with a high school diploma. Full tuition waiver for up to four years.",
+    link: "https://www.adelaide.edu.au/"
+  },
+  {
+    name: "Aga Khan Foundation International Scholarship Programme",
+    eligibility: ["undergraduate, graduate, need, international"],
+    description: "Indian students under 30 with excellent academic records and financial need. Full tuition and living expenses.",
+    link: "https://www.akdn.org/"
+  },
+  {
+    name: "Reach Oxford Scholarship",
+    eligibility: ["undergraduate, need, international"],
+    description: "Indian students from low-income backgrounds with excellent academic performance. Full tuition and living expenses.",
+    link: "https://www.ox.ac.uk/"
+  },
+  {
+    name: "Chevening Scholarships",
+    eligibility: ["graduate, merit, international"],
+    description: "Indian students with at least two years of work experience. Full tuition and living expenses.",
+    link: "https://www.chevening.org/"
+  },
+  {
+    name: "Fulbright-Nehru Master's Fellowships",
+    eligibility: ["graduate, merit-Based, international"],
+    description: "Indian students with a bachelor's degree and work experience. Full tuition and living expenses.",
+    link: "https://www.fulbright.org/"
+  },
+  {
+    name: "Australia Awards Scholarships",
+    eligibility:["graduate, merit, international"],
+    description: "Indian students with a bachelor's degree. Full tuition and living expenses.",
+    link: "https://www.australiaawardsindia.org/"
+  },
+  {
+    name: "Erasmus Mundus Joint Master Degree Scholarships",
+    eligibility: ["graduate, merit, international"],
+    description: "Indian students with a relevant bachelor's degree. Full tuition and living expenses.",
+    link: "https://www.eacea.ec.europa.eu/"
+  },
+  {
+    name: "Commonwealth Shared Scholarships",
+    eligibility: ["graduate, need, international"],
+    description: "Indian students unable to afford studying in the UK. Full tuition and living expenses.",
+    link: "https://www.commonwealth-scholarships.org/"
+  },
+  {
+    name: "Sitaram Jindal Scholarship Scheme",
+    eligibility: ["undergraduate,graduate"],
+    description: "Partial funding for students pursuing higher education in India",
+    link: "https://www.sitaramjindalscholarship.org/"
+  },
+  {
+    name: "Merit Cum Means Scholarship for Professional and Technical Courses",
+    eligibility: ["need,undergraduate ,graduate"],
+    description: "Supports students pursuing professional and technical courses",
+    link: "https://www.ncert.nic.in/"
+  },
+  {
+    name: "National Means Cum Merit Scholarship",
+    eligibility: [" undergraduate ,graduate"],
+    description: "Supports students pursuing higher education",
+    link: "https://www.education.gov.in/"
+  },
+  {
+    name: "Humane Studies Fellowship at George Mason University",
+    eligibility: ["graduate"],
+    description: "Partial funding for research in humanities and social sciences",
+    link: "https://www.gmu.edu/"
+  },
+  { name: "Mukhyamantri Medhavi Vidyarthi Yojana (MMVY)",
+    eligibility: ["undergraduate,graduate"],
+    description: "Supports meritorious students pursuing higher education",
+    link: "https://www.mp.gov.in/"
+  },
+  {
+    name: "Mukhya Mantri Jan Kalyan Yojana (MMJKY)",
+    eligibility: ["undergraduate,graduate"],
+    description: "Supports students pursuing higher education",
+    link: "https://www.mp.gov.in/"
+  },
+  {
+    name: "Reimbursement of Tuition Fee for SC/ST/OBC/Minority",
+    eligibility:[ " undergraduate , graduate"],
+    description: "Reimburses tuition fees for eligible students",
+    link: "https://www.delhi.gov.in/"
+  },
+  {
+    name: "Merit Scholarship for SC/ST/OBC/Minority Students",
+    eligibility:[ " undergraduate, graduate"],
+    description: "Awards merit-based scholarships to eligible students",
+    link: "https://www.delhi.gov.in/"
+  },
+  {
+    name: "Pre-matric Scholarship For ST/SC/General Category",
+    eligibility: ["merit"],
+    description: "Supports education expenses for eligible students",
+    link: "https://www.up.gov.in/"
+  },
+  {
+    name: "Post matric Intermediate Scholarship For ST/SC/General Category",
+    eligibility: [" undergraduate,"],
+    description: "Supports education expenses for eligible students",
+    link: "https://www.up.gov.in/"
+  },
+  {
+    name: "Khalifa University Undergraduate Scholarship",
+    eligibility:["merit,international"],
+    description: "Full tuition, textbooks, and living expenses",
+    link: "https://www.khalifauniversity.ac.ae/"
+  },
+  {
+    name: "Lester B. Pearson International Scholarship",
+    eligibility: ["international"],
+    description: "Full tuition, books, and residence support",
+    link: "https://www.utoronto.ca/"
+  },
+  {
+    name: "Adelaide International Undergraduate Scholarships",
+    eligibility:["international"],
+    description: "Full tuition waiver",
+    link: "https://www.adelaide.edu.au/"
+  },
+  {
+    name: "Global Korea Scholarship for Undergraduate Degrees",
+    eligibility:["merit,international"],
+    description: "Full tuition, monthly stipend, and airfare",
+    link: "https://www.studyinkorea.go.kr/"
+  },
+  {
+    name: "Hong Kong Baptist University Scholarship",
+    eligibility:["merit, international"],
+    description: "Full tuition and living allowance",
+    link: "https://www.hkbu.edu.hk/"
+  },
+  {
+    name: "Karsh International Scholarship",
+    eligibility:["merit,international"],
+    description: "Full tuition, room, and board",
+    link: "https://www.karshinternational.org/"
+  },
+  {
+    name: "Reach Oxford Scholarship",
+    eligibility:["merit,international"],
+    description: "Full tuition and living expenses",
+    link: "https://www.ox.ac.uk/"
+  },
+  {
+    name: "Utrecht Excellence Scholarship",
+    eligibility:["merit,international"],
+    description: "Full tuition and living allowance",
+    link: "https://www.uu.nl/"
+  },
+  {
+    name: "Chevening Scholarships",
+    eligibility:["international"],
+    description:"Full tuition and living expenses",
+    link: "https://www.chevening.org/"
+  },
+  {
+    name: "Fulbright-Nehru Master's Fellowships",
+    eligibility:["international"],
+    description: "Full tuition and living expenses",
+    link: "https://www.fulbright.org/"
+  },
+  {
+    name: "Australia Awards Scholarships",
+    eligibility:["international"],
+    description: "Full tuition and living expenses",
+    link: "https://www.australiaawardsindia.org/"
+  },
+  {
+    name: "Erasmus Mundus Joint Master Degree Scholarships",
+    eligibility:[" international"],
+    description: "Full tuition and living expenses",
+    link: "https://www.eacea.ec.europa.eu/"
+  },
+  {
+    name: "Commonwealth Shared Scholarships",
+    eligibility:["need,international"],
+    description:"Full tuition and living expenses",
+    link: "https://www.commonwealth-scholarships.org/"
+  },
+  {
+    name: "DAAD Scholarships for Development-Related Postgraduate Courses",
+    eligibility: ["international"],
+    description:"Full tuition and living expenses",
+    link: "https://www.daad.in/"
+  },
+  {
+    name: "Gates Cambridge Scholarships",
+    eligibility:[" international"],
+    description: "Full tuition and living expenses",
+    link: "https://www.gatescambridge.org/"
+  },
+  {name: "Vanier Canada Graduate Scholarships",
+    eligibility:["merit,international"],
+    description: "CAD 50,000 per year for three years",
+    link: "https://www.vanier.gc.ca/"
+  },
+  {
+    name: "Swiss Government Excellence Scholarships",
+    eligibility:["international"],
+    description: "Full tuition and living expenses",
+    link: "https://www.sbfi.admin.ch/"
+  },
+  {
+    name: "Rhodes Scholarships",
+    eligibility: ["international"],
+    description: "Full tuition and living expenses",
+    link: "https://www.rhodesscholar.org/"
+  }
+];
+
+    console.log('Total scholarships:', scholarships.length);
+    console.log('Scholarship eligibility types:', [...new Set(scholarships.flatMap(s => s.eligibility))]);
+
+let currentPage = 0;
+    const itemsPerPage = 6;
+    let filteredScholarships = scholarships;
+    let featuredScholarships = new Set();
+
+    function getEligibilityIcon(eligibility) {
+        const icons = {
+            'merit': 'fa-award',
+            'need': 'fa-hand-holding-heart',
+            'undergraduate': 'fa-graduation-cap',
+            'graduate': 'fa-user-graduate',
+            'international': 'fa-globe'
+        };
+        return icons[eligibility] || 'fa-star';
+    }
+
+
+function renderScholarships() {
+    const scholarshipList = document.getElementById('scholarshipList');
+        if (!scholarshipList) {
+            console.error('Scholarship list container not found');
+            return;
+        }
+        
+        scholarshipList.innerHTML = '';
+    
+    if (filteredScholarships.length === 0) {
+            scholarshipList.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <h3>No scholarships found</h3>
+                    <p>Try adjusting your search criteria or filters</p>
+                </div>
+            `;
+        return;
+    }
+
+    const start = currentPage * itemsPerPage;
+    const end = start + itemsPerPage;
+    const scholarshipsToShow = filteredScholarships.slice(start, end);
+
+        const grid = document.createElement('div');
+        grid.classList.add('scholarship-grid');
+
+    scholarshipsToShow.forEach(scholarship => {
+            const card = document.createElement('div');
+            card.classList.add('scholarship-card');
+            
+            const mainEligibility = scholarship.eligibility[0].toLowerCase();
+            const isFeatured = featuredScholarships.has(scholarship.name);
+            
+            card.innerHTML = `
+                <button class="favorite-button ${isFeatured ? 'active' : ''}" onclick="toggleFavorite(${JSON.stringify(scholarship).replace(/"/g, '&quot;')})">
+                    <i class="fas fa-star"></i>
+                </button>
+                <div class="scholarship-header">
+                    <div class="scholarship-icon">
+                        <i class="fas ${getEligibilityIcon(mainEligibility)}"></i>
+                    </div>
+                    <h3 class="scholarship-title">${scholarship.name}</h3>
+                </div>
+                <div class="scholarship-eligibility">
+                    ${scholarship.eligibility.map(el => `
+                        <span class="eligibility-tag">
+                            <i class="fas ${getEligibilityIcon(el.toLowerCase())}"></i>
+                            ${el}
+                        </span>
+                    `).join('')}
+                </div>
+                <p class="scholarship-description">${scholarship.description}</p>
+                <div class="scholarship-footer">
+                    <a href="${scholarship.link}" target="_blank" class="scholarship-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Apply Now
+                    </a>
+                </div>
+            `;
+            
+            grid.appendChild(card);
+        });
+
+        scholarshipList.appendChild(grid);
+        console.log('Rendered', scholarshipsToShow.length, 'scholarships');
+
+    document.getElementById("prev-btn").disabled = currentPage === 0;
+    document.getElementById("next-btn").disabled = end >= filteredScholarships.length;
+}
+
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    });
+
+    function filterScholarships() {
+        const selectedEligibility = Array.from(document.querySelectorAll('input[name="eligibility"]:checked'))
+            .map(input => input.value);
+        
+        const searchQuery = document.getElementById('searchQuery').value.toLowerCase().trim();
+        
+        // Update selected state for filter labels
+        document.querySelectorAll('.filter-label').forEach(label => {
+            const checkbox = label.querySelector('input[type="checkbox"]');
+            if (checkbox.checked) {
+                label.classList.add('selected');
+            } else {
+                label.classList.remove('selected');
+            }
+        });
+        
+        filteredScholarships = scholarships.filter(scholarship => {
+            const matchesSearch = searchQuery === '' || 
+                scholarship.name.toLowerCase().includes(searchQuery) ||
+                scholarship.description.toLowerCase().includes(searchQuery);
+            
+            const matchesEligibility = selectedEligibility.length === 0 || 
+                selectedEligibility.some(el => scholarship.eligibility.includes(el));
+            
+            return matchesSearch && matchesEligibility;
+        });
+
+        currentPage = 0;
+        renderScholarships();
+    }
+
+    function clearAllFilters() {
+        document.querySelectorAll('input[name="eligibility"]').forEach(checkbox => {
+            checkbox.checked = false;
+            checkbox.parentElement.classList.remove('selected');
+        });
+
+        document.getElementById('searchQuery').value = '';
+        filteredScholarships = [...scholarships];
+        currentPage = 0;
+        renderScholarships();
+    }
+
+    // Add event listeners for real-time filtering
+    document.querySelectorAll('input[name="eligibility"]').forEach(checkbox => {
+        checkbox.addEventListener('change', filterScholarships);
+    });
+
+    // Add search input event listener with debouncing
+    const searchInput = document.getElementById('searchQuery');
+    let searchTimeout;
+
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(filterScholarships, 300);
+    });
+
+    // Initialize filters on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initial render
+        renderScholarships();
+        renderFeaturedScholarships();
+    });
+
+    function paginate(direction) {
+        currentPage += direction;
+        renderScholarships();
+    }
+
+    function toggleFavorite(scholarship) {
+        if (featuredScholarships.has(scholarship.name)) {
+            featuredScholarships.delete(scholarship.name);
+        } else {
+            featuredScholarships.add(scholarship.name);
+        }
+        localStorage.setItem('featuredScholarships', JSON.stringify([...featuredScholarships]));
+renderScholarships();
+        renderFeaturedScholarships();
+    }
+
+    function renderFeaturedScholarships() {
+        const featuredContainer = document.getElementById('featuredScholarships');
+        if (!featuredContainer) return;
+
+        const featured = scholarships.filter(s => featuredScholarships.has(s.name));
+
+        if (featured.length === 0) {
+            featuredContainer.innerHTML = `
+                <div class="no-featured">
+                    <i class="fas fa-star"></i>
+                    <h3>No Featured Scholarships Yet</h3>
+                    <p>Click the star icon on any scholarship to add it to your featured list</p>
+                </div>
+            `;
+            return;
+        }
+
+        const grid = document.createElement('div');
+        grid.classList.add('scholarship-grid');
+
+        featured.forEach(scholarship => {
+            const card = document.createElement('div');
+            card.classList.add('scholarship-card');
+            
+            const mainEligibility = scholarship.eligibility[0].toLowerCase();
+            
+            card.innerHTML = `
+                <button class="favorite-button active" onclick="toggleFavorite(${JSON.stringify(scholarship).replace(/"/g, '&quot;')})">
+                    <i class="fas fa-star"></i>
+                </button>
+                <div class="scholarship-header">
+                    <div class="scholarship-icon">
+                        <i class="fas ${getEligibilityIcon(mainEligibility)}"></i>
+                    </div>
+                    <h3 class="scholarship-title">${scholarship.name}</h3>
+                </div>
+                <div class="scholarship-eligibility">
+                    ${scholarship.eligibility.map(el => `
+                        <span class="eligibility-tag">
+                            <i class="fas ${getEligibilityIcon(el.toLowerCase())}"></i>
+                            ${el}
+                        </span>
+                    `).join('')}
+                </div>
+                <p class="scholarship-description">${scholarship.description}</p>
+                <div class="scholarship-footer">
+                    <a href="${scholarship.link}" target="_blank" class="scholarship-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Apply Now
+                    </a>
+                </div>
+            `;
+            
+            grid.appendChild(card);
+        });
+
+        featuredContainer.innerHTML = '';
+        featuredContainer.appendChild(grid);
+    }
+
+    // Initial render
+    renderScholarships();
+    updateFilterCounts();
+
+    // Function to check authentication
+    function checkAuth() {
+        const userData = JSON.parse(sessionStorage.getItem('userData') || localStorage.getItem('userData'));
+        if (!userData || !userData.token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        // Display username in the welcome message
+        document.getElementById('user-name').textContent = userData.username;
+    }
+
+    // Update the logout function
+    function handleLogout() {
+        sessionStorage.removeItem('userData');
+        localStorage.removeItem('userData');
+        window.location.href = 'login.html';
+    }
+
+    // Call checkAuth when page loads
+    document.addEventListener('DOMContentLoaded', checkAuth);
+
+    // Function to check authentication
+    function checkAuth() {
+        const userData = sessionStorage.getItem('userData') || localStorage.getItem('userData');
+        if (!userData) {
+            // If not logged in, redirect to login page
+            window.location.href = 'login.html';
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        checkAuth();
+    });
+
+    function handleLogout() {
+        // Clear both session and local storage
+        sessionStorage.removeItem('userData');
+        localStorage.removeItem('userData');
+        
+        // Redirect to login page
+        window.location.href = 'login.html';
+    }
+    </script>
+</body>
+</html>
