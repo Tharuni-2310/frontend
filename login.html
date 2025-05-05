@@ -22,16 +22,6 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--light-bg);
-            color: var(--text-color);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
         .container {
             width: 90%;
             max-width: 1200px;
@@ -45,15 +35,31 @@
             align-items: center;
             justify-content: center;
             padding: 4rem 0;
+            
+        }
+        section{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height:100vh;
+            width:100%;
+            background:url("image.jpg") no-repeat;
+            background-size:cover;
+            background-position: center;
         }
 
         .login-container {
-            background: var(--white);
+            font-family: 'Poppins', sans-serif;
+            border:2px solid rgba(255,255,255,.5);
             padding: 3rem;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(28, 1, 1, 0.1);
             width: 100%;
             max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter:blur(10px);
         }
 
         .login-header {
@@ -200,6 +206,7 @@
     </style>
 </head>
 <body>
+    <section>
     <div class="login-section">
         <div class="login-container">
             <div class="login-header">
@@ -228,7 +235,7 @@
                 <div class="form-options">
                     <div class="remember-me">
                         <input type="checkbox" id="remember">
-                        <label for="remember">Remember me</label>
+                        <label for="remember">Remember Me</label>
                     </div>
                     <a href="#" style="color: var(--primary-color); text-decoration: none;">Forgot Password?</a>
                 </div>
@@ -239,7 +246,7 @@
             </div>
         </div>
     </div>
-
+    </section>
     <script>
         function handleLogin(event) {
             event.preventDefault();
@@ -248,44 +255,21 @@
             const password = document.getElementById('password').value;
             const remember = document.getElementById('remember').checked;
             
-            // Create API request to backend
-            fetch('https://backend-bv9z.onrender.com/api/user/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: email,
-                    password: password
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    alert(data.error);
-                    return;
-                }
-                
-                const userData = {
-                    username: data.username,
-                    token: data.token,
-                    email: email
-                };
-                
-                // Store in sessionStorage by default
-                sessionStorage.setItem('userData', JSON.stringify(userData));
-                
-                // If remember me is checked, also store in localStorage
-                if (remember) {
-                    localStorage.setItem('userData', JSON.stringify(userData));
-                }
-                
-                window.location.href = 'just.html';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Login failed. Please try again.');
-            });
+            // Create user data object
+            const userData = {
+                email: email
+            };
+            
+            // Store in sessionStorage by default
+            sessionStorage.setItem('userData', JSON.stringify(userData));
+            
+            // If remember me is checked, also store in localStorage
+            if (remember) {
+                localStorage.setItem('userData', JSON.stringify(userData));
+            }
+            
+            // Redirect to just.html
+            window.location.href = 'just.html';
         }
 
         function togglePassword() {
